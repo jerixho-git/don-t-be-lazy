@@ -8,7 +8,7 @@ const presets = {
   Break: 15,
 };
 
-const DEFAULT_ALARM_URL = '/alarm.mp3';
+const DEFAULT_ALARM_URL = `${import.meta.env.BASE_URL}alarm.mp3`;
 
 const canUseStorage = () => {
   try {
@@ -107,11 +107,11 @@ export default function StudyDevBreakTimer() {
     const cached = storage.get('focus-audio');
 
     if (cached) {
-      audioRef.current = new Audio("/alarm.mp3");
+      audioRef.current = new Audio(DEFAULT_ALARM_URL);
       return;
     }
 
-    audioRef.current = new Audio('/alarm.mp3');
+    audioRef.current = new Audio(DEFAULT_ALARM_URL);
   }, []);
 
   useEffect(() => {
@@ -153,7 +153,7 @@ export default function StudyDevBreakTimer() {
         return;
       }
 
-      const audio = audioRef.current || new Audio("/alarm.mp3");
+      const audio = audioRef.current || new Audio(DEFAULT_ALARM_URL);
 
       audio.pause();
       audio.currentTime = 0;
@@ -307,7 +307,7 @@ export default function StudyDevBreakTimer() {
                   }
 
                   storage.set('focus-audio', reader.result);
-                  audioRef.current = new Audio("/alarm.mp3");
+                  audioRef.current = new Audio(DEFAULT_ALARM_URL);
                 };
 
                 reader.readAsDataURL(file);
